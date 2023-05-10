@@ -19,8 +19,23 @@ def abrir_toplevel_medico():
 
     # Combobox para el género
     cmb_genero = ttk.Combobox(toplevel_medico, textvariable=generos_selected, values=generos, font=("Helvetica", 12))
-    cmb_genero.place(x=100, y=110)
-        
+    cmb_genero.place(x=110, y=50)
+
+    #label para nombrar cada combo o lo que sea
+    #nombre
+    lb_g = Label(toplevel_medico, text = "Genero: ")
+    lb_g.config(bg= "white", fg="blue", font=("Times New Roman", 15))
+    lb_g.place(x=15, y=50)
+
+    # Combobox para el tipo de sangre
+    cmb_sangre = ttk.Combobox(toplevel_medico, textvariable=sangre_seleccionado, values=tipos_desangre, font=("Helvetica", 12))
+    cmb_sangre.place(x=160, y=80)   
+
+    #label para nombrar cada combo o lo que sea
+    #nombre
+    lb_s = Label(toplevel_medico, text = "Tipo de Sangre: ")
+    lb_s.config(bg= "white", fg="blue", font=("Times New Roman", 15))
+    lb_s.place(x=15, y=80)
 
    # boton para aceptar
     bt_aceptar = Button(toplevel_medico,text="Listo", command=aceptar)
@@ -30,8 +45,8 @@ def abrir_toplevel_medico():
 def aceptar():
     global generos_selected
     global genero_seleccionado
+    global sangre_seleccionado
     genero_seleccionado = generos_selected.get()
-    print(genero_seleccionado)
     toplevel_medico.destroy()
     
 
@@ -48,7 +63,6 @@ def abrir_toplevel_academico():
     lb_c = Label(toplevel_academico, text = "Fomulario Academico ")
     lb_c.config(bg="white", fg="blue", font=("Helvetica", 18))
     lb_c.place(x=10, y=10)
-
     
    # boton para aceptar
     bt_aceptar1 = Button(toplevel_academico, text="Listo", command=aceptar1)
@@ -66,14 +80,43 @@ def abrir_toplevel_resultados():
     toplevel_resultados.resizable(False, False)
     toplevel_resultados.geometry("400x600")
     toplevel_resultados.config(bg="white")
+    #nombre
+    lb_nombre = Label(toplevel_resultados, text="Nombre: {}".format(name.get()))
+    lb_nombre.place(x=10, y=20)
+
+    #nombre
+    lb_programa = Label(toplevel_resultados, text="Programa académico: {}".format(programa_selectec.get()))
+    lb_programa.place(x=10, y=40)
+
+    #codigo
+    lb_codigo = Label(toplevel_resultados, text="Codigo: {}".format(codigo.get()))
+    lb_codigo.place(x=10, y=60)
+
+    #edad
+    lb_codigo = Label(toplevel_resultados, text="Edad: {}".format(edad.get()))
+    lb_codigo.place(x=10, y=80)
 
     # Crear una etiqueta para mostrar el género
     lb_genero = Label(toplevel_resultados, text="Género: {}".format(genero_seleccionado))
     lb_genero.config(bg="white", font=("Helvetica", 12))
-    lb_genero.place(x=10, y=70)
+    lb_genero.place(x=10, y=100)
 
-    lb_nombre = Label(toplevel_resultados, text="Nombre: {}".format(name.get()))
-    lb_nombre.place(x=10, y=50)
+    #tipo de sangre
+    lb_sangre = Label(toplevel_resultados, text="Tipo de sangre: {}".format(sangre_seleccionado.get()))
+    lb_sangre.config(bg="white", font=("Helvetica", 12))
+    lb_sangre.place(x=10, y=120)
+
+
+# borrar
+def borrar():
+    messagebox.showinfo("Estado", "Los datos serán borrados")
+    name.set("")
+    generos_selected.set("") # borra el valor seleccionado en el combobox de género
+    sangre_seleccionado.set("")
+# salir
+def salir():
+    messagebox.showinfo("Estado", "La app se va a cerrar")
+    ventana_principal.destroy()
 
 
 #Ventana principal
@@ -102,6 +145,8 @@ programa_selectec = StringVar()
 generos = ["Femenino", "Masculino"]
 generos_selected = StringVar()
 genero_seleccionado = StringVar()
+tipos_desangre = ["Tipo B+", "Tipo B+", "Tipo A+", "Tipo O+", "Tipo B-", "Tipo B-", "Tipo A-", "Tipo O-"]
+sangre_seleccionado = StringVar()
 
 #--------------------------------
 # frame titulo
@@ -197,11 +242,13 @@ bt_fm.place(x=15, y=20)
 
 # boton para abrir resultados
 bt_r = Button(ventana_principal, text="Mostrar informe", command=abrir_toplevel_resultados)
-bt_r.config(height=3, width=25)
-bt_r.place(x=300, y=470)
+bt_r.config(height=3, width=20)
+bt_r.place(x=320, y=470)
 
-
-
+# boton para borrar
+bt_r = Button(ventana_principal, text="Borrar", command=borrar)
+bt_r.config(height=3, width=20)
+bt_r.place(x=150, y=470)
 
 
 
