@@ -37,6 +37,37 @@ def abrir_toplevel_medico():
     lb_s.config(bg= "white", fg="blue", font=("Times New Roman", 15))
     lb_s.place(x=15, y=80)
 
+    #label para nombrar cada combo o lo que sea
+    #nombre
+    lb_a = Label(toplevel_medico, text = "Altura (cm): ")
+    lb_a.config(bg= "white", fg="blue", font=("Times New Roman", 15))
+    lb_a.place(x=15, y=120)
+
+    # caja de texto para la altura
+    entry_a = Entry(toplevel_medico, textvariable=altura)
+    entry_a.config(bg="white", fg="black", font=("Times New Roman", 18), width=10,)
+    entry_a.place(x=120,y=120)
+    
+    # caja de texto para la masa
+    entry_m = Entry(toplevel_medico, textvariable=masa)
+    entry_m.config(bg="white", fg="black", font=("Times New Roman", 18), width=10,)
+    entry_m.place(x=120,y=160)
+    
+
+    #etiquieta para masa
+    lb_a = Label(toplevel_medico, text = "Masa(g)): ")
+    lb_a.config(bg= "white", fg="blue", font=("Times New Roman", 15))
+    lb_a.place(x=15, y=160)
+
+    #etiquieta para la enfermedad
+    lb_a = Label(toplevel_medico, text = "Selecciona enfermedad(opcional)): ")
+    lb_a.config(bg= "white", fg="blue", font=("Times New Roman", 15))
+    lb_a.place(x=15, y=192)
+
+    # Combobox para la enfermedad
+    cmb_enfermedad = ttk.Combobox(toplevel_medico, textvariable=enfermedad_selecionada, values=enfermedades, font=("Helvetica", 12))
+    cmb_enfermedad.place(x=20, y=215)  
+
    # boton para aceptar
     bt_aceptar = Button(toplevel_medico,text="Listo", command=aceptar)
     bt_aceptar.place(x=290, y=350, width=100, height=30)
@@ -106,6 +137,21 @@ def abrir_toplevel_resultados():
     lb_sangre.config(bg="white", font=("Helvetica", 12))
     lb_sangre.place(x=10, y=120)
 
+    #altura
+    lb_altura = Label(toplevel_resultados, text="Altura (cm): {}".format(altura.get() + " cm"))
+    lb_altura.config(bg="white", font=("Helvetica", 12))
+    lb_altura.place(x=10, y=140)
+
+    #masa
+    lb_masa = Label(toplevel_resultados, text="Masa (g): {}".format(masa.get() + " g"))
+    lb_masa.config(bg="white", font=("Helvetica", 12))
+    lb_masa.place(x=10, y=160)
+
+    #enfermedad
+    #masa
+    lb_enfermedad = Label(toplevel_resultados, text="Enfermedad: {}".format(enfermedad_selecionada.get()))
+    lb_enfermedad.config(bg="white", font=("Helvetica", 12))
+    lb_enfermedad.place(x=10, y=185)
 
 # borrar
 def borrar():
@@ -113,6 +159,12 @@ def borrar():
     name.set("")
     generos_selected.set("") # borra el valor seleccionado en el combobox de género
     sangre_seleccionado.set("")
+    edad.set("")
+    codigo.set("")
+    programa_selectec.set("")
+    altura.set("")
+    masa.set("")
+    enfermedad_selecionada.set("")
 # salir
 def salir():
     messagebox.showinfo("Estado", "La app se va a cerrar")
@@ -147,6 +199,10 @@ generos_selected = StringVar()
 genero_seleccionado = StringVar()
 tipos_desangre = ["Tipo B+", "Tipo B+", "Tipo A+", "Tipo O+", "Tipo B-", "Tipo B-", "Tipo A-", "Tipo O-"]
 sangre_seleccionado = StringVar()
+altura= StringVar()
+masa = StringVar()
+enfermedades = [  "Ninguna",  "Gripe",    "Resfriado",    "Bronquitis",    "Neumonía",    "Tuberculosis",    "VIH/SIDA",    "Hepatitis",    "Cáncer",    "Diabetes",    "Hipertensión",    "Asma",    "Alergias",    "Artritis",    "Obesidad",    "Anemia",    "Enfermedad de Parkinson",    "Alzheimer",    "Esquizofrenia",    "Depresión",    "Trastorno de ansiedad",    "Trastorno bipolar",    "Trastorno obsesivo-compulsivo",    "Trastorno de estrés postraumático",    "Trastornos alimentarios (anorexia, bulimia)",    "Trastornos del sueño (insomnio, apnea del sueño)"]
+enfermedad_selecionada= StringVar()
 
 #--------------------------------
 # frame titulo
