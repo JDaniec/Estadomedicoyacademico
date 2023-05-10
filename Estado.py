@@ -3,13 +3,86 @@ from PIL import ImageTk, Image
 from tkinter import messagebox, ttk
 
 
+#top level formulario
+def abrir_toplevel_medico():
+    global toplevel_medico
+    toplevel_medico = Toplevel()
+    toplevel_medico.title("Formulario Medico")
+    toplevel_medico.resizable(False, False)
+    toplevel_medico.geometry("400x400")
+    toplevel_medico.config(bg="white")
+
+    # etiqueta para "Formulario Medico"
+    lb_c = Label(toplevel_medico, text = "Fomulario medico ")
+    lb_c.config(bg="white", fg="blue", font=("Helvetica", 18))
+    lb_c.place(x=10, y=10)
+
+    # Combobox para el género
+    cmb_genero = ttk.Combobox(toplevel_medico, textvariable=generos_selected, values=generos, font=("Helvetica", 12))
+    cmb_genero.place(x=100, y=110)
+        
+
+   # boton para aceptar
+    bt_aceptar = Button(toplevel_medico,text="Listo", command=aceptar)
+    bt_aceptar.place(x=290, y=350, width=100, height=30)
+
+# aceptar
+def aceptar():
+    global generos_selected
+    global genero_seleccionado
+    genero_seleccionado = generos_selected.get()
+    print(genero_seleccionado)
+    toplevel_medico.destroy()
+    
+
+#top level formulario acedemico
+def abrir_toplevel_academico():
+    global toplevel_academico
+    toplevel_academico = Toplevel()
+    toplevel_academico.title("Formulario Acamedico")
+    toplevel_academico.resizable(False, False)
+    toplevel_academico.geometry("400x400")
+    toplevel_academico.config(bg="white")
+
+    # etiqueta para "Formulario Academico"
+    lb_c = Label(toplevel_academico, text = "Fomulario Academico ")
+    lb_c.config(bg="white", fg="blue", font=("Helvetica", 18))
+    lb_c.place(x=10, y=10)
+
+    
+   # boton para aceptar
+    bt_aceptar1 = Button(toplevel_academico, text="Listo", command=aceptar1)
+    bt_aceptar1.place(x=290, y=350, width=100, height=30)
+
+# aceptar
+def aceptar1():
+    toplevel_academico.destroy()
+    
+#top level para mostrar resultados
+def abrir_toplevel_resultados(): 
+    global toplevel_resultados       
+    toplevel_resultados = Toplevel()
+    toplevel_resultados.title("Resultados")
+    toplevel_resultados.resizable(False, False)
+    toplevel_resultados.geometry("400x600")
+    toplevel_resultados.config(bg="white")
+
+    # Crear una etiqueta para mostrar el género
+    lb_genero = Label(toplevel_resultados, text="Género: {}".format(genero_seleccionado))
+    lb_genero.config(bg="white", font=("Helvetica", 12))
+    lb_genero.place(x=10, y=70)
+
+    lb_nombre = Label(toplevel_resultados, text="Nombre: {}".format(name.get()))
+    lb_nombre.place(x=10, y=50)
+
+
 #Ventana principal
 ventana_principal = Tk()
 # titulo de la ventana
 ventana_principal.title("Estado Medico y Estudiantil")
 
 # tamaño de la ventana
-ventana_principal.geometry("500x650")
+ventana_principal.geometry("500x550")
 
 # deshabilitar boton de maximizar
 ventana_principal.resizable(False, False)
@@ -21,13 +94,14 @@ fondo = Label(ventana_principal, image=imagen_fondo)
 fondo.place(x=0, y=0, height=700, width=500)
 
 #-----variables------
-ventana_principal.resizable(0,0)
-name = StringVar()
+name = StringVar() 
 edad = StringVar()
 codigo = StringVar()
 programa = ["Ingeniería de Sistemas", "Ingeniería Industrial", "Ingeniería Civil", "Ingeniería Mecánica", "Ingeniería Química", "Ingeniería Electrica", "Ingeniería Electrónica", "Turismo"]
 programa_selectec = StringVar()
-
+generos = ["Femenino", "Masculino"]
+generos_selected = StringVar()
+genero_seleccionado = StringVar()
 
 #--------------------------------
 # frame titulo
@@ -51,6 +125,7 @@ frame_2.place(x=10, y=80)
 entry_c = Entry(frame_2, textvariable=name)
 entry_c.config(bg="white", fg="black", font=("Times New Roman", 18), width=27,)
 entry_c.place(x=110,y=5)
+entry_c = Entry(frame_2, textvariable=name)
 
 # etiqueta para el nombre del estudiante 
 lb_c = Label(ventana_principal, text = "Nombre: ")
@@ -83,8 +158,8 @@ lb_c.config(bg="bisque",fg="blue", font=("Times New Roman", 18))
 lb_c.place(x=14, y=170)
 
 #Seleccion de porograma academico
-cmb_programa = ttk.Combobox(ventana_principal, textvariable=programa_selectec, values=programa, font=("Times New Roman", 17))
-cmb_programa.place(x=130, y=180)
+cmb_programa = ttk.Combobox(ventana_principal, textvariable=programa_selectec, values=programa, font=("Times New Roman", 15))
+cmb_programa.place(x=125, y=180)
 
 
 #--------------------------------
@@ -94,24 +169,36 @@ frame_3 = Frame(ventana_principal)
 frame_3.config(bg="peach puff",width=480, height=50, borderwidth=5 , relief="groove")
 frame_3.place(x=10, y=250)
 
-titulo2 = Label(frame_3, text="Estado Medico y Estudiantil")
+titulo2 = Label(frame_3, text="Estado Medico y Academico")
 titulo2.config(bg="peach puff",fg="black", font=("MS Sans Serif", 19))
 titulo2.place(x=80,y=4)
 #--------------------------------
-# frame 3
-#--------------------------------
-frame_3 = Frame(ventana_principal)
-frame_3.config(bg="bisque",width=230, height=240, borderwidth=5 , relief="groove")
-frame_3.place(x=10, y=320)
-#--------------------------------
 # frame 4
 #--------------------------------
-frame_3 = Frame(ventana_principal)
-frame_3.config(bg="bisque",width=230, height=240, borderwidth=5 , relief="groove")
-frame_3.place(x=260, y=320)
+frame_4 = Frame(ventana_principal)
+frame_4.config(bg="bisque",width=230, height=110, borderwidth=5 , relief="groove")
+frame_4.place(x=10, y=320)
+#--------------------------------
+# frame 5
+#--------------------------------
+frame_5 = Frame(ventana_principal)
+frame_5.config(bg="bisque",width=230, height=110, borderwidth=5 , relief="groove")
+frame_5.place(x=260, y=320)
 
+# boton para abrir Toplevel para ingresar formulario medico
+bt_fm = Button(frame_4, text="Formulario Medico", command=abrir_toplevel_medico)
+bt_fm.config(height=3, width=25)
+bt_fm.place(x=15, y=20)
 
+# boton para abrir Toplevel para ingresar formulario academico
+bt_fm = Button(frame_5, text="Formulario Academico", command=abrir_toplevel_academico)
+bt_fm.config(height=3, width=25)
+bt_fm.place(x=15, y=20)
 
+# boton para abrir resultados
+bt_r = Button(ventana_principal, text="Mostrar informe", command=abrir_toplevel_resultados)
+bt_r.config(height=3, width=25)
+bt_r.place(x=300, y=470)
 
 
 
